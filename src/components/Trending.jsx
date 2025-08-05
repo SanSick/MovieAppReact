@@ -28,7 +28,7 @@ const Trending = () => {
   }, [category, duration]);
 
   return trending.length > 0 ? (
-    <div className=" px-[3%] py-[2%] w-screen h-screen overflow-hidden overflow-y-auto">
+    <div className=" px-[2%] py-[1.5%] w-screen h-screen overflow-hidden overflow-y-auto">
       <div className="w-full flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-zinc-400">
           <i

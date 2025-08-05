@@ -1,29 +1,28 @@
-import React from "react";
-import { Link, data } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Cards = ({ data, title }) => {
+const Cards = ({data, title}) => {
   return (
-    <div className="flex flex-wrap w-full">
-      {data.map((c, i) => ( 
-        <Link className="w[25vh] mr-[5%] mb-[5%]" key={i}>
-          <img
-            className=" shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] h-[40vh] object-cover"
-            src={`https://image.tmdb.org/t/p/original/${
-              c.poster_path || c.backdrop_path
+    <div className='w-full mt-8 flex flex-wrap ml-5 gap-6'>
+      {data.map((c, i) => (
+        <Link className='w-[14.5%] bg-zinc-900 rounded-lg overflow-hidden shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] transition-all duration-300 hover:scale-105 hover:rounded-none'>
+            <img src={`https://image.tmdb.org/t/p/original/${
+              c.poster_path ||  c.backdrop_path 
             }`}
-            alt=""
-          />
+            alt="" />
 
-          <h1 className="text-xl text-zinc-300 mt-3 font-semibold">
-            {c.name || c.title || c.original_name || c.original_title}
-          </h1>
+            <h1 className='px-2 py-4 text-white font-semibold text-sm sm:text-base leading-tight line-clamp-2'>{c.name || c.title || c.original_name || c.original_title}</h1>
+
         </Link>
       ))}
-    </div>
-  );
-};
 
-export default Cards;
+    </div>
+  )
+}
+
+export default Cards
+
+
 
 
 

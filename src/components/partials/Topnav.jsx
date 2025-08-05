@@ -25,13 +25,13 @@ const Topnav = () => {
   return (
     
     <div className="w-[60%] mx-auto h-[12vh] relative flex items-center">
-      <i className="text-zinc-400 text-2xl ri-search-line"></i>
+      <i className="text-zinc-400 text-xl ri-search-line"></i>
       <input
         onChange={(e) => {
           setquery(e.target.value);
         }}
         value={query}
-        className="w-[100%] text-white ml-2 mr-7 py-3 px-5 text-xl outline-none border-none rounded-lg "
+        className="w-[100%] text-zinc-400 ml-1 mr-7 py-3 px-2 text-xl outline-none border-none rounded-lg "
         type="text"
         placeholder="search anything"
       />
