@@ -5,31 +5,51 @@ import Dropdown from "./partials/Dropdown";
 import axios from "../utils/axios";
 import Cards from "./partials/Cards";
 import Loading from "./Loading";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Trending = () => {
   const navigate = useNavigate();
   const [category, setcategory] = useState("all");
   const [duration, setduration] = useState("day");
   const [trending, settrending] = useState([]);
+  const [page, setpage] = useState(1);
+  const [hashMore, sethashMore] = useState(true)
 
   const GetTrending = async () => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}`);
-      // console.log(data.results);
-      settrending(data.results);
+      const { data } = await axios.get(`/trending/${category}/${duration}?page=${page}`);
+      if (data.results.length > 0) {
+        // settrending(data.results);
+        settrending((prevState) => [...prevState, ...data.results])
+        setpage(page + 1);
+        // console.log(data.results);
+      }else{
+        sethashMore(false);
+      }
     } catch (error) {
       console.log("Error: ", error);
     }
   };
-  console.log(trending);
+  // console.log(trending);
+
+  const refreshHandler = () => {
+    if (trending.length === 0) {
+      GetTrending();
+    }else{
+      setpage(1);
+      settrending([]);
+      GetTrending();
+    }
+  }
 
   useEffect(() => {
-    GetTrending();
+    // GetTrending();
+    refreshHandler();
   }, [category, duration]);
 
   return trending.length > 0 ? (
-    <div className=" px-[2%] py-[1.5%] w-screen h-screen overflow-hidden overflow-y-auto">
-      <div className="w-full flex items-center justify-between">
+    <div className="w-screen h-screen ">
+      <div className="px-[2%] mt-[1%] w-full flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-zinc-400">
           <i
             onClick={() => navigate(-1)}
@@ -56,11 +76,17 @@ const Trending = () => {
         </div>
       </div>
 
-      <Cards data={trending} title={category}/>
-
+      <InfiniteScroll 
+        dataLength={trending.length} 
+        next={GetTrending()}
+        hasMore={hashMore}
+        loader={<h1>Loading...</h1>}
+      >
+        <Cards data={trending} title={category} />
+      </InfiniteScroll>
     </div>
   ) : (
-    <Loading/>
+    <Loading />
   );
 };
 
