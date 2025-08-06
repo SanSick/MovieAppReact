@@ -1,54 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Topnav from "./partials/Topnav";
-import Dropdown from "./partials/Dropdown";
 import axios from "../utils/axios";
-import Cards from "./partials/Cards";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Cards from "./partials/Cards";
+import Topnav from "./partials/Topnav";
+import Dropdown from "./partials/Dropdown";
 
-const Trending = () => {
+const Movie = () => {
+  document.title = "SCSDB | Movies";
+
   const navigate = useNavigate();
-  const [category, setcategory] = useState("all");
-  const [duration, setduration] = useState("day");
-  const [trending, settrending] = useState([]);
+  const [category, setcategory] = useState("now_playing");
+  const [movie, setmovie] = useState([]);
   const [page, setpage] = useState(1);
   const [hashMore, sethashMore] = useState(true);
-  document.title = "SCSDB | Trending" + category.toUpperCase();
 
-  const GetTrending = async () => {
+  const GetMovie = async () => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}?page=${page}`);
+      const { data } = await axios.get(`/movie/${category}?page=${page}`);
       if (data.results.length > 0) {
-        // settrending(data.results);
-        settrending((prevState) => [...prevState, ...data.results])
+        // setmovie(data.results);
+        setmovie((prevState) => [...prevState, ...data.results]);
         setpage(page + 1);
         // console.log(data.results);
-      }else{
+      } else {
         sethashMore(false);
       }
     } catch (error) {
       console.log("Error: ", error);
     }
   };
-  // console.log(trending);
+  // console.log(movie);
 
   const refreshHandler = () => {
-    if (trending.length === 0) {
-      GetTrending();
-    }else{
+    if (movie.length === 0) {
+      GetMovie();
+    } else {
       setpage(1);
-      settrending([]);
-      GetTrending();
+      setmovie([]);
+      GetMovie();
     }
-  }
+  };
 
   useEffect(() => {
-    // GetTrending();
+    // GetMovie();
     refreshHandler();
-  }, [category, duration]);
+  }, [category]);
 
-  return trending.length > 0 ? (
+  return movie.length > 0 ? (
     <div className="w-screen h-screen ">
       <div className="px-[2%] mt-[1%] w-full flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-zinc-400">
@@ -56,7 +56,7 @@ const Trending = () => {
             onClick={() => navigate(-1)}
             className="hover:text-[#6556CD] ri-arrow-left-line"
           ></i>{" "}
-          Trending
+          Movies
         </h1>
 
         <div className="flex items-center w-[85%]">
@@ -65,25 +65,20 @@ const Trending = () => {
           <div className="w-[2%]"> </div>
           <Dropdown
             title="Category"
-            options={["movie", "tv", "all"]}
+            options={["popular", "top_rated", "upcoming", "now_playing"]}
             func={(e) => setcategory(e.target.value)}
           />
           <div className="w-[1%]"> </div>
-          <Dropdown
-            title="Duration"
-            options={["week", "day"]}
-            func={(e) => setduration(e.target.value)}
-          />
         </div>
       </div>
 
-      <InfiniteScroll 
-        dataLength={trending.length} 
-        next={GetTrending()}
+      <InfiniteScroll
+        dataLength={movie.length}
+        next={GetMovie()}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >
-        <Cards data={trending} title={category} />
+        <Cards data={movie} title={category} />
       </InfiniteScroll>
     </div>
   ) : (
@@ -91,4 +86,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default Movie;
