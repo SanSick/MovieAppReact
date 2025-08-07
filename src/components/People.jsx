@@ -8,7 +8,7 @@ import Topnav from "./partials/Topnav";
 import Dropdown from "./partials/Dropdown";
 
 const People = () => {
-  document.title = "SCSDB | Tv Shows";
+  document.title = "SCSDB | People";
 
   const navigate = useNavigate();
   const [category, setcategory] = useState("popular");
@@ -71,7 +71,7 @@ const People = () => {
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >
-        <Cards data={person} title={category} />
+        <Cards data={person} title="person" />
       </InfiniteScroll>
     </div>
   ) : (

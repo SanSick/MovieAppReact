@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Cards = ({ data, title }) => {
+  console.log(data);
   return (
     <div className="w-full h-full mt-8 flex flex-wrap pl-[4%] gap-6 px-[2%] bg-[#1F1E24]">
       {data.map((c, i) => (
-        <Link
+        <Link 
+          to={`/${c.media_type || title}/details/${c.id}`}
           key={i}
           className="relative w-[14.5%] bg-zinc-900 rounded-lg overflow-hidden shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] transition-all duration-300 hover:scale-105 hover:rounded-none"
         >
