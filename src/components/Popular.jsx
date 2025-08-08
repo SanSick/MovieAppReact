@@ -74,7 +74,7 @@ const Popular = () => {
 
       <InfiniteScroll
         dataLength={popular.length}
-        next={GetPopular()}
+        next={GetPopular}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >

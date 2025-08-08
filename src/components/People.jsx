@@ -67,7 +67,7 @@ const People = () => {
 
       <InfiniteScroll
         dataLength={person.length}
-        next={GetPerson()}
+        next={GetPerson}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >

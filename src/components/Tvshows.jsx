@@ -74,7 +74,7 @@ const Tvshows = () => {
 
       <InfiniteScroll
         dataLength={tv.length}
-        next={Gettv()}
+        next={Gettv}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >

@@ -74,7 +74,7 @@ const Movie = () => {
 
       <InfiniteScroll
         dataLength={movie.length}
-        next={GetMovie()}
+        next={GetMovie}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >
