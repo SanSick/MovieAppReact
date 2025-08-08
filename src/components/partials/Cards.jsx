@@ -25,7 +25,7 @@ const Cards = ({ data, title }) => {
           {c.vote_average && (
             <div className="absolute right-[5%] top-[2%] text-xs text-white w-[7vh] h-[4vh] font-semibold bg-orange-400 rounded-full flex justify-center items-center text-center">
               {(c.vote_average * 10).toFixed()}{" "}
-              <sup className="pt-2 pl-[0.5%] font-bold">%</sup>{" "}
+              <sup className="pt-2 pl-[0.5%] font-bold">%</sup>
             </div>
           )}
         </Link>

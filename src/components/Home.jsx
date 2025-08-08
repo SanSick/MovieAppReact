@@ -20,11 +20,12 @@ const Home = () => {
       // console.log(data.results);
       let randomdata =
         data.results[(Math.random() * data.results.length).toFixed()];
-      setwallpaper(randomdata);
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
+        // console.log(randomdata);
+        setwallpaper(randomdata);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    };
   // console.log(wallpaper);
 
   const GetTrending = async () => {
@@ -52,7 +53,6 @@ const Home = () => {
 
         <div className="flex justify-between p-5">
           <h1 className="text-3xl font-semibold text-zinc-400">Trending</h1>
-
           <Dropdown
             title="Filter"
             options={["tv", "movie", "all"]}
@@ -64,7 +64,7 @@ const Home = () => {
       </div>
     </>
   ) : (
-    <Loading/>
+    <Loading />
   );
 };
 

@@ -55,7 +55,7 @@ const Trending = () => {
           <i
             onClick={() => navigate(-1)}
             className="hover:text-[#6556CD] ri-arrow-left-line"
-          ></i>{" "}
+          ></i>
           Trending
         </h1>
 
@@ -79,7 +79,7 @@ const Trending = () => {
 
       <InfiniteScroll 
         dataLength={trending.length} 
-        next={GetTrending()}
+        next={GetTrending}
         hasMore={hashMore}
         loader={<h1>Loading...</h1>}
       >

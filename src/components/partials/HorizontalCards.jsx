@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HorizontalCards = ({ data }) => {
   return (
-      <div className="w-[100%] flex  overflow-y-hidden mb-5 p-5">
+      <div className="w-[100%] flex overflow-y-hidden mb-5 p-5">
         {data.map((d, i) => (
           <Link
             to={`/${d.media_type}/details/${d.id}`}
