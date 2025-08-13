@@ -30,7 +30,7 @@ const Header = ({ data }) => {
         {data.media_type.toUpperCase()}
       </p>
 
-      <Link className="mt-5 bg-[#6556CD] px-4 py-3 rounded-md ">
+      <Link to={`${data.media_type}/details/${data.id}/trailer`} className="mt-5 bg-[#6556CD] px-4 py-3 rounded-md ">
         Watch Trailer
       </Link>
     </div>

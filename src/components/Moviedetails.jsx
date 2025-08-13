@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncloadmovie, removemovie } from "../store/actions/movieActions";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import HorizontalCards from "./partials/HorizontalCards";
 import Loading from "./Loading";
 
 const Moviedetails = () => {
+  const {pathname} = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
   const { info } = useSelector((state) => state.movie);
@@ -16,7 +18,7 @@ const Moviedetails = () => {
     return () => {
       dispatch(removemovie());
     };
-  }, []);
+  }, [id]);
 
   return info ? (
     <div
@@ -25,7 +27,7 @@ const Moviedetails = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
-      className="w-screen h-screen px-[10%]"
+      className="relative w-full min-h-screen px-4 sm:px-6 lg:px-[10%]"
     >
       {/* Part-1 Navigation */}
       <nav className="h-[10vh] w-full text-zinc-300 flex items-center gap-10 text-xl font-medium">
@@ -64,7 +66,7 @@ const Moviedetails = () => {
       </nav>
 
       {/* Part-2 Poster and details */}
-      <div className="w-full flex gap-6 mb-8">
+      <div className="w-full flex mb-8">
         <img
           className="shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] h-[40vh] sm:h-[45vh] lg:h-[50vh] object-cover lg:rounded-none rounded-lg"
           src={`https://image.tmdb.org/t/p/original/${
@@ -79,10 +81,61 @@ const Moviedetails = () => {
               info.detail.name ||
               info.detail.original_name ||
               info.detail.original_title}
-            <small className="text-2xl font-bold text-zinc-200">
+            <small className="text-2xl font-bold pl-2 text-zinc-300">
               ({info.detail.release_date.split("-")[0]})
             </small>
           </h1>
+
+          {/* Rating and Info */}
+          <div className="mt-4 mb-6 flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-x-5">
+            <div className="flex items-center gap-4">
+              <span className="text-white text-lg sm:text-xl font-semibold w-[8vh] h-[8vh] flex justify-center text-center rounded-full items-center bg-orange-400">
+                {(info.detail.vote_average * 10).toFixed()}<sup className="mt-4 ml-[1.2px]">%</sup>
+              </span>
+              <h1 className="font-semibold text-xl sm:text-2xl leading-6">User Score</h1>
+            </div>
+            
+            <div className="flex flex-row items-center gap-2 sm:gap-4 text-sm sm:text-base">
+              <h1>{info.detail.release_date}</h1>
+              <h1 className="text-center sm:text-left">{info.detail.genres.map((g) => g.name).join(", ")}</h1>
+              <h1>{info.detail.runtime}min</h1>
+            </div>
+          </div>
+
+          {info.detail.tagline && (
+            <h1 className="text-lg sm:text-xl font-semibold italic mb-4 px-4 lg:px-0">
+              {info.detail.tagline}
+            </h1>
+          )}
+
+          {/* Overview */}
+          <div className="mb-6">
+            <h1 className="text-lg sm:text-xl font-semibold mt-4 mb-2">Overview</h1>
+            <p className="text-sm sm:text-base leading-relaxed px-4 lg:px-0">
+              {info.detail.overview}
+            </p>
+          </div>
+
+          {/* Translations */}
+          <div className="mb-6">
+            <h1 className="text-lg sm:text-xl font-semibold mt-4 mb-2">Movie Translations</h1>
+            <p className="mb-7 text-sm sm:text-base px-4 lg:px-0">
+              {info.translations.join(" , ")}
+            </p>
+          </div>
+
+          {/* Trailer Button */}
+          <div className="flex justify-center lg:justify-start">
+            <Link 
+              className="rounded-lg py-3 px-5 bg-[#6556CD] hover:bg-[#5a4bc4] transition-colors text-sm sm:text-base inline-flex items-center" 
+              to={`${pathname}/trailer`}
+            >
+              <i className="text-lg sm:text-xl mr-1 ri-play-fill"></i>
+              Play Trailer
+            </Link>
+          </div>
+
+
         </div>
       </div>
 
@@ -145,6 +198,20 @@ const Moviedetails = () => {
           </div>
         )}
       </div>
+
+
+      {/* Part 4 - Recommendations and Similar Stuff */}
+      <hr className="bg-zinc-500 mt-8 lg:mt-10 border-none h-[1px]" />
+      <h1 className="text-2xl sm:text-3xl mt-6 lg:mt-8 font-bold text-white text-center lg:text-left px-4 lg:px-0">
+        Recommendations & Similar Stuff
+      </h1>
+      <div className="mt-4 mb-8">
+        <HorizontalCards 
+          data={info.recommendations.length > 0 ? info.recommendations : info.similar}
+        />
+      </div>
+
+      <Outlet />
     </div>
   ) : (
     <Loading />
