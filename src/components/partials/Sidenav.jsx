@@ -32,7 +32,7 @@ const Sidenav = ({ open, setOpen }) => {
       {/* Hamburger button for mobile - Fixed positioning and z-index */}
       {showHamburger && (
         <button
-          className="md:hidden absolute top-2.5 left-3 z-[60] p-2 bg-[#1F1E24] rounded-lg text-white focus:outline-none shadow-lg border border-zinc-600"
+          className="md:hidden absolute top-3 left-2 z-[60] p-2 bg-[#1F1E24] rounded-lg text-white focus:outline-none shadow-lg border border-zinc-600"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >

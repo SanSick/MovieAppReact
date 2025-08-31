@@ -24,14 +24,14 @@ const Topnav = () => {
 
   return (
     
-    <div className="w-[60%] mx-auto h-[12vh] relative flex items-center">
-      <i className="text-zinc-400 text-xl ri-search-line"></i>
+    <div className=" w-[65%] md:w-[60%] mx-auto h-[10vh] md:h-[12vh] relative flex items-center">
+      <i className="text-zinc-400 text-lg md:text-xl pt-1 ri-search-line"></i>
       <input
         onChange={(e) => {
           setquery(e.target.value);
         }}
         value={query}
-        className="w-[100%] text-zinc-400 ml-1 mr-7 py-3 px-2 text-xl outline-none border-none rounded-lg "
+        className="w-[100%] text-zinc-400 md:ml-1 mr-7 py-3 px-2 text-lg md:text-xl outline-none border-none rounded-lg "
         type="text"
         placeholder="search anything"
       />
@@ -48,10 +48,10 @@ const Topnav = () => {
           <Link
             to={`/${s.media_type}/details/${s.id}`}
             key={i}
-            className="hover:text-black hover:bg-zinc-300 duration-300 font-semibold text-zinc-600 w-[100%] p-8 flex justify-start items-center border-b-2 border-zinc-100"
+            className="hover:text-black hover:bg-zinc-300 duration-300 font-semibold text-zinc-600 w-[100%] p-4 md:p-8 flex justify-start items-center border-b-2 border-zinc-100"
           >
             <img
-              className="w-[10vh] h-[10vh] object-cover rounded mr-5 shadow-lg"
+              className="w-[8vh] h-[8vh] md:w-[10vh] md:h-[10vh] object-cover rounded mr-4 md:mr-5 shadow-lg"
               src={
                 s.backdrop_path || s.profile_path ? `https://image.tmdb.org/t/p/original/${
                 s.backdrop_path || s.profile_path
@@ -59,7 +59,7 @@ const Topnav = () => {
             }
               alt=""
             />
-            <span>
+            <span className="truncate">
               {s.name || s.title || s.original_name || s.original_title}
             </span>
           </Link>

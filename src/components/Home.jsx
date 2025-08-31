@@ -84,7 +84,7 @@ const Home = () => {
   // console.log(trending);
 
   return wallpaper && trending ? (
-    <div className="flex flex-col md:flex-row  w-full h-full min-h-screen">
+    <div className="flex flex-col md:flex-row w-full h-full min-h-screen">
       {/* Sidenav: Pass open state and setter */}
       <div className="hidden md:block md:w-[19%] h-full">
         <Sidenav open={sidenavOpen} setOpen={setSidenavOpen} />
@@ -96,9 +96,9 @@ const Home = () => {
       </div>
 
       
-      <div className="w-[81%] h-full overflow-auto overflow-x-hidden">
+      <div className="w-full md:w-[81%] h-full overflow-auto overflow-x-hidden p-0 m-0">
         <Topnav />
-        {/* <Header data={wallpaper} /> */}
+        <Header data={wallpaper} />
 
         <div className="p-3 md:p-5 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
           <h1 className="text-2xl md:text-3xl font-semibold text-zinc-400">Trending</h1>
